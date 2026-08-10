@@ -1,0 +1,149 @@
+*{
+    text-decoration: none;
+    color : black;
+    box-sizing: border-box;
+    margin : 0;
+    padding:0;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: rgb(182, 210, 179) ;
+    height : 1700px;
+    padding : 90px 10px;
+}
+
+.navbar {
+    position: fixed;
+    top: 10px;            
+    left: 10px;            
+    width: calc(100% - 20px); 
+    display: flex;
+    background: linear-gradient(to right, rgb(12, 94, 62), rgb(145, 217, 137));
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 70px;
+    margin: 0;  
+}
+
+.logo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1;
+    padding-left: 25px;
+    cursor: pointer;
+}
+
+.logo .hindi{
+    font-family: "Tiro Devanagari Hindi", serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: azure;
+
+}
+
+.logo .english{
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: #d9ff7a;
+}
+
+.nav-links {
+    display : flex;
+    gap : 30px
+}
+
+.nav-link {
+    font-size: 18px;
+    font-family: "Poppins";
+}
+
+.nav-link{
+    color: black;
+    font-weight : 535;
+    position: relative;
+    transition: 0.3s;
+}
+
+/* .nav-link:hover{
+    color: #2466a0;
+} */
+
+.nav-link::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    background : linear-gradient(to right , orange , white ,green);
+    transition: 0.7s;
+}
+
+.nav-link:hover::after{
+    width: 100%;
+}
+
+
+.hero {
+    margin-top : 70px;
+}
+
+.hero-left h1 {
+    font-size : 120px;
+    text-align : center;
+}
+
+.bruhh {
+    margin-left : 110px;
+}
+
+.taggy {
+    background: linear-gradient(to right, rgb(12, 94, 62), rgb(107, 186, 99));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-left p {
+    text-align : center;
+    padding-top : 40px;
+    font-size : 28px;
+    background: linear-gradient(to right, rgb(29, 56, 45), rgb(118, 179, 111));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+}
+
+.homebtns {
+    display : flex;
+    justify-content : center;
+    align-items : center;
+    padding : 80px;
+    gap : 80px;
+}
+
+.btns {
+    height : 60px;
+    width : 180px;
+    border : none;
+
+    font-weight : bolder;
+    font-size : 20px;
+    border-radius : 20px;
+
+    background : linear-gradient(to right , orange , white ,green);
+    border : 1px solid green;
+    box-shadow: 5px 5px rgb(4, 57, 4);
+
+    cursor : pointer;
+
+    transition : 1s;
+}
+
+.btns:hover{
+    transform : scale(1.05) translate(-5px,-5px);
+    border : 3px solid green
+}
