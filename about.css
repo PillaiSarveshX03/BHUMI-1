@@ -21,3 +21,62 @@
 #bhumi {
     color: #8bc34a;
 }
+
+.subtitle {
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.subtitle h1 {
+    margin: 0;
+    font-size: clamp(22px, 3vw, 42px);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -1px;
+}
+
+#sub_about_1 {
+    color: #183d1b;
+}
+
+#sub_about_2 {
+    color: #4f8f45;
+    font-weight: 700;
+}
+
+.body-msg {
+    max-width: 950px;
+    margin: 35px auto 0;
+    padding: 0 25px;
+    text-align: center;
+    font-size: 17px;
+    line-height: 1.9;
+    letter-spacing: 0.2px;
+    color: #536153;
+    font-weight: 400;
+}
+
+#bdy-msg-1 {
+    color: #1d541f;
+    font-weight: 800;
+}
+
+#bdy-msg-2 {
+    color: #7a8779;
+    font-size: 15px;
+    font-style: italic;
+}
+
+#bdy-msg-3 {
+    color: #3f513f;
+    font-weight: 500;
+}
+
+#bdy-msg-4 {
+    color: #465746;
+}
+
+#bdy-msg-5 {
+    color: #607060;
+}

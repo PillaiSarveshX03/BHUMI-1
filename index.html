@@ -37,13 +37,75 @@
 
                 <div class="homebtns">
                 <button id="letsgrow" class="btns">LET'S GROW</button>
-                <button id="connect" class="btns">LET'S CONNECT</button>
+                <button id="connect" class="btns" onclick="window.location.href='contact.html'">LET'S CONNECT</button>
                 </div>
 
             </div>
+
+            
         </div>
-        <section>
-        </section>
+        
+        <div class="farmer-decision">
+
+    <div class="decision-header">
+        <h2>Farmer Decision Panel</h2>
+        <p>
+            Select your district to get crop recommendations and check
+            which crops are suitable for your region.
+        </p>
+    </div>
+
+    <div class="district-section">
+
+        <label for="district">District</label>
+
+        <div class="district-input">
+            <span class="location-icon">⌖</span>
+
+            <select id="district">
+                <option value="" disabled selected>Select a district</option>
+                <option value="sangli">Sangli</option>
+                <option value="satara">Satara</option>
+                <option value="nashik">Nashik</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div class="decision-options">
+
+        <div class="decision-card">
+
+            <div class="option-icon">✦</div>
+
+            <div class="option-content">
+                <h3>Suggested Crops</h3>
+                <p>
+                    Let the soil and climate profile recommend what to grow.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="decision-card">
+
+            <div class="option-icon">⌕</div>
+
+            <div class="option-content">
+                <h3>Crop I Want to Grow</h3>
+                <p>
+                    Search a specific crop and check how well it fits here.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+        </div>
     </main>
 </body>
 </html>
