@@ -80,3 +80,103 @@
 #bdy-msg-5 {
     color: #607060;
 }
+
+.about-section {
+    width: 100%;
+    margin:20px;
+    padding: 100px 8%;
+    background: #f5f7f2;
+}
+
+.about-container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.about-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    align-items: stretch;
+}
+
+.about-card-1{
+    padding: 38px;
+    border-radius: 28px;
+    background: #fff;
+    min-height: 290px;
+    box-shadow: 0 15px 35px rgba(31, 58, 41, 0.08);
+}
+
+.about-card-1 {
+    min-height: 320px;
+    padding: 45px;
+    border-radius: 28px;
+    background: #ffffff;
+    border: 1px solid rgba(20, 70, 40, 0.08);
+    box-shadow: 0 15px 40px rgba(20, 60, 35, 0.08);
+    transition: all 0.35s ease;
+}
+
+.about-card-1:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 55px rgba(20, 60, 35, 0.14);
+}
+
+.abt-logo {
+    width: 65px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    background: #eef6e9;
+    font-size: 32px;
+    margin-bottom: 25px;
+}
+
+.about-card-1 h2 {
+    margin: 0 0 18px;
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.abt-1 {
+    color: #183b27;
+}
+
+.abt-2 {
+    color: #4f8f45;
+    margin-left: 8px;
+}
+
+.about-card-1 p {
+    max-width: 850px;
+    margin: 0;
+    color: #647064;
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+.p-1 {
+    color: #253d2c;
+    font-weight: 600;
+}
+
+.p-2 {
+    color: #4f6d55;
+}
+
+.p-3 {
+    color: #253d2c;
+    font-weight: 600;
+}
+
+.about-card p span {
+    transition: color 0.3s ease;
+}
+
+.about-card:hover .p-1 {
+    color: #3f7d3c;
+}
