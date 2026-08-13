@@ -85,12 +85,14 @@
     width: 100%;
     margin:20px;
     padding: 100px 8%;
-    background: #f5f7f2;
+    background: #ffffff;
 }
 
-.about-container {
-    max-width: 1200px;
-    margin: auto;
+.section-divider {
+    width: 85%;
+    margin: 80px auto 60px;
+    border: none;
+    border-top: 1px solid rgba(49, 84, 61, 0.2);
 }
 
 .about-grid{
@@ -100,93 +102,17 @@
     align-items: stretch;
 }
 
-.about-card{
-    padding: 38px;
-    border-radius: 28px;
-    background: #fff;
-    min-height: 290px;
-    box-shadow: 0 15px 35px rgba(31, 58, 41, 0.08);
-}
-
-.about-card {
-    min-height: 320px;
-    padding: 45px;
-    border-radius: 28px;
-    background: #ffffff;
-    border: 1px solid rgba(20, 70, 40, 0.08);
-    box-shadow: 0 15px 40px rgba(20, 60, 35, 0.08);
-    transition: all 0.35s ease;
-}
-
-.about-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 25px 55px rgba(20, 60, 35, 0.14);
-}
-
-.abt-logo {
-    width: 65px;
-    height: 65px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 18px;
-    background: #eef6e9;
-    font-size: 32px;
-    margin-bottom: 25px;
-}
-
-.about-card-1 h2 {
-    margin: 0 0 18px;
-    font-size: 42px;
-    font-weight: 700;
-    letter-spacing: -1px;
-}
-
-.abt1title{
-    color: #0a0a0a;
-}
-
-.about-card p {
-    max-width: 850px;
-    margin: 0;
-    color: #647064;
-    font-size: 17px;
-    line-height: 1.8;
-}
-
-.p-1 {
-    color: #178638;
-    font-weight: 600;
-}
-
-.p-2 {
-    color: #4f6d55;
-}
-
-.p-3 {
-    color: #253d2c;
-    font-weight: 600;
-}
-
-.about-card p span {
-    transition: color 0.3s ease;
-}
-
-.abt2subtitle{
-    color: #d9451c;
-}
-
-.ai-card {
+.abt-card {
     width: 100%;
     max-width: 730px;
-    height: 400px;
+    height: 300px;
 
     position: relative;
     overflow: hidden;
 
     display: flex;
 
-    background: #ffffff;
+    background: linear-gradient(to right, rgb(37, 182, 126), rgb(154, 224, 146));
     border-radius: 32px;
 
     box-shadow: 0 20px 50px rgba(20, 60, 30, 0.12);
@@ -194,10 +120,14 @@
     transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.abt-card:hover{
+    transform:rotate(-1deg);
+    cursor:pointer;
+}
 
 /* IMAGE */
 
-.ai-image {
+.abt-image {
     width: 75%;
     height: 100%;
 
@@ -207,7 +137,7 @@
     transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.ai-image img {
+.abt-image img {
     width: 100%;
     height: 100%;
 
@@ -220,7 +150,7 @@
 
 /* TITLE - RIGHT SIDE */
 
-.ai-title {
+.abt-title {
     position: absolute;
 
     right: 0;
@@ -236,14 +166,13 @@
     align-items: flex-start;
     justify-content: center;
 
-    background: #ffffff;
-
+    background: linear-gradient(to right, rgb(37, 182, 126), rgb(154, 224, 146));
     transition:
         opacity 0.35s ease,
         transform 0.6s ease;
 }
 
-.ai-title h2 {
+.abt-title h2 {
     margin: 0;
 
     font-family: Arial, sans-serif;
@@ -253,14 +182,14 @@
     color: #050505;
 }
 
-.ai-title span,
-.ai-content span {
+.abt-title span,
+.abt-content span {
     color: #e24724;
 }
 
 /* CONTENT */
 
-.ai-content {
+.abt-content {
     width: 75%;
     height: 100%;
 
@@ -283,7 +212,7 @@
     pointer-events: none;
 }
 
-.ai-content h2 {
+.abt-content h2 {
     margin: 0 0 20px;
 
     font-family: Arial, sans-serif;
@@ -294,7 +223,7 @@
     color: #050505;
 }
 
-.ai-content p {
+.abt-content p {
     margin: 0;
 
     font-family: Arial, sans-serif;
@@ -305,7 +234,7 @@
     color: #31543d;
 }
 
-.ai-content strong {
+.abt-content strong {
     color: #087d38;
 }
 
@@ -314,26 +243,26 @@
    REVEAL
 ========================= */
 
-.ai-card:hover .ai-image {
+.abt-card:hover .abt-image {
     width: 25%;
 }
 
-.ai-card:hover .ai-title {
+.abt-card:hover .abt-title {
     opacity: 0;
     transform: translateX(30px);
     pointer-events: none;
 }
 
-.ai-card:hover .ai-content {
+.abt-card:hover .abt-content {
     opacity: 1;
     transform: translateX(0);
     pointer-events: auto;
 }
 
-.ai-card:hover .reveal-arrow {
+.abt-card:hover {
     transform: translateX(8px);
 }
 
-.ai-card:hover .ai-image img {
+.abt-card:hover .abt-image img {
     transform: scale(1.05);
 }
