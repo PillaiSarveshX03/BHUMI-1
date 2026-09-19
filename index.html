@@ -21,7 +21,7 @@
                     <a href="index.html" class="nav-link">HOME</a>
                     <a href="Pages/about.html" class="nav-link">ABOUT</a>
                     <a href="Pages/services.html" class="nav-link">SERVICES</a>
-                    <a href="Pages/cropdata.html" class="nav-link">DATABASE</a>
+                    <a href="Pages/database.html" class="nav-link">DATABASE</a>
                     <a href="Pages/contact.html" class="nav-link">CONTACT</a>
                 </div>
             </div>
@@ -40,7 +40,7 @@
 
                 <div class="homebtns">
                     <button id="letsgrow" class="btns">LET'S GROW</button>
-                    <button id="connect" class="btns" onclick="window.location.href='contact.html'">LET'S
+                    <button id="connect" class="btns" onclick="window.location.href='Pages/contact.html'">LET'S
                         CONNECT</button>
                 </div>
 
@@ -78,7 +78,7 @@
 
             <div class="decision-options">
 
-                <div class="decision-card">
+                <div class="decision-card" id="card-suggested" role="button" tabindex="0">
 
                     <div class="option-icon">✦</div>
 
@@ -92,7 +92,7 @@
                 </div>
 
 
-                <div class="decision-card">
+                <div class="decision-card" id="card-crop-search" role="button" tabindex="0">
 
                     <div class="option-icon">⌕</div>
 
@@ -107,10 +107,61 @@
 
             </div>
 
-        </div>
+            <!-- Interactive Section Opened by Decision Cards -->
+            <div id="decision-result-panel" class="decision-result-panel" style="display: none;">
+                <div class="panel-header">
+                    <h3 id="panel-title">Regional Insights</h3>
+                    <button id="close-panel-btn" class="close-btn" title="Close section">&times;</button>
+                </div>
+                <div id="panel-body"></div>
+            </div>
 
         </div>
     </main>
+
+    <!-- Huge Card / Crop Dossier Modal -->
+    <div id="crop-modal" class="dossier-modal-overlay" style="display: none;">
+        <div class="huge-crop-card">
+            <button id="modal-close-btn" class="huge-card-close" title="Close">&times;</button>
+            
+            <div class="huge-card-head">
+                <div class="huge-head-tags">
+                    <span class="huge-district-tag" id="modal-district">District</span>
+                    <span class="huge-score-tag" id="modal-rating">Suitability</span>
+                </div>
+                <h2 id="modal-crop-name">Crop Name</h2>
+                <div class="scientific" id="modal-scientific">Scientific Name</div>
+            </div>
+
+            <div class="huge-sections-grid">
+                <div class="huge-info-block">
+                    <h4>🌱 Cultivation Calendar</h4>
+                    <p><strong>Growing Season:</strong> <span id="modal-season"></span></p>
+                    <p><strong>Target Soil Type:</strong> <span id="modal-soil"></span></p>
+                </div>
+
+                <div class="huge-info-block">
+                    <h4>⚖️ Fertilizer Formulation (NPK)</h4>
+                    <div class="npk-badge-strip">
+                        <span class="npk-val" id="modal-npk">NPK</span>
+                        <span class="npk-unit">kg/ha dose</span>
+                    </div>
+                    <p><strong>Organic Manure:</strong> <span id="modal-manure"></span></p>
+                    <p><strong>Secondary & Micronutrients:</strong> <span id="modal-micronutrients"></span></p>
+                </div>
+            </div>
+
+            <div class="huge-full-block">
+                <h4>📋 Application Schedule & Agronomic Rationale</h4>
+                <p id="modal-schedule"></p>
+            </div>
+
+            <div class="huge-card-footer">
+                <button id="modal-done-btn" class="huge-close-btn">Close Information</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 
