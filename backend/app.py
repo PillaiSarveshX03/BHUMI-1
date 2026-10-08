@@ -162,10 +162,20 @@ def add_crop():
     except sqlite3.IntegrityError:
         return jsonify({"error": "Crop already exists in this district"}), 409
 
-@app.route('/api/recommend', methods=['POST'])
+@app.route('/api/recommend', methods=['GET', 'POST'])
 def recommend_crops():
     """Rule-based scoring for crop recommendation."""
-    data = request.json or {}
+    if request.method == 'GET':
+        data = request.args
+        if not data:
+            return jsonify({
+                "message": "Send a POST request with JSON payload or use GET with query parameters to get recommendations.",
+                "example_usage_post": {"soil": "loam", "season": "kharif", "region": "sangli"},
+                "example_usage_get": "/api/recommend?soil=loam&season=kharif&region=sangli"
+            })
+    else:
+        data = request.json or {}
+        
     req_soil = data.get('soil', '').lower()
     req_season = data.get('season', '').lower()
     req_region = data.get('region', '').lower()

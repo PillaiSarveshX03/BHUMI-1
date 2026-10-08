@@ -22,7 +22,8 @@
                         <option value="en">English</option>
                         <option value="mr">Marathi</option>
                     </select>
-                    <div id="google_translate_element" style="width:0;height:0;overflow:hidden;position:absolute;"></div>
+                    <div id="google_translate_element" style="width:0;height:0;overflow:hidden;position:absolute;">
+                    </div>
                     <a href="../index.html" class="nav-link">HOME</a>
                     <a href="about.html" class="nav-link">ABOUT</a>
                     <a href="services.html" class="nav-link">SERVICES</a>
@@ -61,28 +62,38 @@
             </div>
 
             <div class="stat-card">
-                <h2>3</h2>
+                <h2>6</h2>
                 <p>Soil Types Tracked</p>
             </div>
+
 
         </section>
 
 
-        <section class="recommender-section" style="padding: 4rem 2rem; background-color: #f7faf7; border-top: 1px solid #e2ece1; margin-top: 2rem;">
+        <section class="recommender-section"
+            style="padding: 4rem 2rem; background-color: #f7faf7; border-top: 1px solid #e2ece1; margin-top: 2rem;">
             <div style="max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 2rem;">
                 <div style="text-align: center;">
                     <h2>Smart Crop Recommender</h2>
-                    <p style="color: #445343; margin-top: 1rem; margin-bottom: 0.8rem;">Let our API recommend the best crops based on your conditions.</p>
-                    <div style="display: inline-flex; align-items: center; gap: 8px; background-color: #eaf3e9; border: 1px solid #c9e2c6; color: #246337; padding: 6px 12px; border-radius: 6px; font-family: monospace; font-size: 14px;">
-                        <span style="background-color: #2F7D46; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold; font-size: 12px;">POST</span> 
-                        <span>http://127.0.0.1:5000/api/recommend</span>
+                    <p style="color: #445343; margin-top: 1rem; margin-bottom: 0.8rem;">Let our API recommend the best
+                        crops based on your conditions.</p>
+                    <div
+                        style="display: inline-flex; align-items: center; gap: 8px; background-color: #eaf3e9; border: 1px solid #c9e2c6; color: #246337; padding: 6px 12px; border-radius: 6px; font-family: monospace; font-size: 14px;">
+                        <span
+                            style="background-color: #2F7D46; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold; font-size: 12px;">POST
+                            / GET</span>
+                        <a href="http://127.0.0.1:5000/api/recommend" target="_blank"
+                            style="color: #246337; text-decoration: underline;">http://127.0.0.1:5000/api/recommend</a>
                     </div>
                 </div>
-                
-                <form id="recommenderForm" style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; align-items: end;">
+
+                <form id="recommenderForm"
+                    style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; align-items: end;">
                     <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                        <label for="rec-soil" style="font-weight: 600; font-size: 14px; color: #1f3320;">Soil Type</label>
-                        <select id="rec-soil" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px; background-color: white;">
+                        <label for="rec-soil" style="font-weight: 600; font-size: 14px; color: #1f3320;">Soil
+                            Type</label>
+                        <select id="rec-soil"
+                            style="padding: 10px; border: 1px solid #ccc; border-radius: 6px; background-color: white;">
                             <option value="">Any Soil</option>
                             <option value="black">Black Soil</option>
                             <option value="loam">Loam / Alluvial</option>
@@ -93,8 +104,10 @@
                         </select>
                     </div>
                     <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                        <label for="rec-season" style="font-weight: 600; font-size: 14px; color: #1f3320;">Season</label>
-                        <select id="rec-season" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px; background-color: white;">
+                        <label for="rec-season"
+                            style="font-weight: 600; font-size: 14px; color: #1f3320;">Season</label>
+                        <select id="rec-season"
+                            style="padding: 10px; border: 1px solid #ccc; border-radius: 6px; background-color: white;">
                             <option value="">Any Season</option>
                             <option value="kharif">Kharif</option>
                             <option value="rabi">Rabi</option>
@@ -103,18 +116,23 @@
                         </select>
                     </div>
                     <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                        <label for="rec-region" style="font-weight: 600; font-size: 14px; color: #1f3320;">Region/District</label>
-                        <select id="rec-region" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px; background-color: white;">
+                        <label for="rec-region"
+                            style="font-weight: 600; font-size: 14px; color: #1f3320;">Region/District</label>
+                        <select id="rec-region"
+                            style="padding: 10px; border: 1px solid #ccc; border-radius: 6px; background-color: white;">
                             <option value="">Any District</option>
                             <option value="nashik">Nashik</option>
                             <option value="sangli">Sangli</option>
                             <option value="satara">Satara</option>
                         </select>
                     </div>
-                    <button type="submit" style="padding: 12px 24px; background: #2F7D46; color: white; border: none; border-radius: 6px; font-weight: 700; cursor: pointer;">GET RECOMMENDATIONS</button>
+                    <button type="submit"
+                        style="padding: 12px 24px; background: #2F7D46; color: white; border: none; border-radius: 6px; font-weight: 700; cursor: pointer;">GET
+                        RECOMMENDATIONS</button>
                 </form>
-                
-                <div id="recommenderResults" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;">
+
+                <div id="recommenderResults"
+                    style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;">
                     <!-- Results go here -->
                 </div>
             </div>
@@ -196,17 +214,17 @@
     </main>
     <script src="../script.js"></script>
     <script>
-        document.getElementById("recommenderForm").addEventListener("submit", async function(e) {
+        document.getElementById("recommenderForm").addEventListener("submit", async function (e) {
             e.preventDefault();
             const soil = document.getElementById("rec-soil").value;
             const season = document.getElementById("rec-season").value;
             const region = document.getElementById("rec-region").value;
             const resultsDiv = document.getElementById("recommenderResults");
             const btn = e.target.querySelector("button");
-            
+
             btn.innerHTML = "LOADING...";
             resultsDiv.innerHTML = "";
-            
+
             try {
                 const response = await fetch("http://127.0.0.1:5000/api/recommend", {
                     method: "POST",
@@ -214,7 +232,7 @@
                     body: JSON.stringify({ soil, season, region })
                 });
                 const data = await response.json();
-                
+
                 if (data.length === 0) {
                     resultsDiv.innerHTML = "<p>No exact matches found. Try relaxing your criteria.</p>";
                 } else {
@@ -246,7 +264,8 @@
             }, 'google_translate_element');
         }
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 
 </html>
