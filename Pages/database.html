@@ -14,11 +14,16 @@
     <header>
         <nav>
             <div class="navbar">
-                <div class="logo">
+                <div class="logo notranslate" translate="no">
                     <span class="hindi">भूमि</span>
                     <span class="english">BHUMI</span>
                 </div>
-                <div class="nav-links">
+                <div class="nav-links" style="align-items: center;">
+                    <select class="custom-lang-selector" onchange="changeLanguage(this.value)">
+                        <option value="en">English</option>
+                        <option value="mr">Marathi</option>
+                    </select>
+                    <div id="google_translate_element" style="width:0;height:0;overflow:hidden;position:absolute;"></div>
                     <a href="../index.html" class="nav-link">HOME</a>
                     <a href="about.html" class="nav-link">ABOUT</a>
                     <a href="services.html" class="nav-link">SERVICES</a>
@@ -141,19 +146,20 @@
 
     <!-- Interactive Data Loading Script -->
     <script>
+        const API_BASE_URL = "http://127.0.0.1:5000";
         let allCrops = [];
         let districtProfiles = {};
         let activeDistrict = "all";
+        let searchTimeout = null;
 
         async function initDatabase() {
             try {
-                const response = await fetch("../Data/crops.json");
-                if (!response.ok) throw new Error("Could not load Data/crops.json");
+                // Initialize districtProfiles first (for tabs)
+                const response = await fetch(`${API_BASE_URL}/api/crops`);
+                if (!response.ok) throw new Error("Could not connect to API");
                 const data = await response.json();
 
-                const districts = data?.regional_crop_agronomy_database?.districts || [];
-
-                let cropCount = 0;
+                const districts = data.districts || [];
                 districts.forEach(d => {
                     const dKey = d.district_name.toLowerCase();
                     districtProfiles[dKey] = {
@@ -161,49 +167,54 @@
                         soils: d.predominant_soil_types.join(" • "),
                         chemistry: d.soil_chemical_profile
                     };
-
-                    (d.viable_recommended_crops || []).forEach(crop => {
-                        cropCount++;
-                        allCrops.push({
-                            ...crop,
-                            districtName: d.district_name,
-                            districtKey: dKey
-                        });
-                    });
                 });
-
                 document.getElementById("stat-districts").textContent = districts.length;
-                document.getElementById("stat-crops").textContent = cropCount;
-
-                renderCrops();
+                
+                await fetchAndRenderCrops();
             } catch (err) {
                 console.error("Database loading error:", err);
                 document.getElementById("crops-grid").innerHTML = `
                     <div class="no-crops-found">
-                        <h3>Error Loading Crops</h3>
-                        <p>Unable to load Data/crops.json. Please make sure the data file is present.</p>
+                        <h3>Backend API Unavailable</h3>
+                        <p>Could not connect to the backend API. Ensure Flask is running on port 5000.</p>
                     </div>
                 `;
             }
         }
 
-        function renderCrops() {
+        async function fetchAndRenderCrops() {
+            try {
+                const searchVal = (document.getElementById("db-search-input").value || "").trim();
+                let url = `${API_BASE_URL}/api/crops?`;
+                if (searchVal) url += `search=${encodeURIComponent(searchVal)}&`;
+                if (activeDistrict !== "all") url += `region=${encodeURIComponent(activeDistrict)}`;
+
+                const response = await fetch(url);
+                if (!response.ok) throw new Error("Could not fetch crops");
+                const data = await response.json();
+                allCrops = data.crops || [];
+                
+                // Get basic stats to update crops stat
+                try {
+                    const statsResponse = await fetch(`${API_BASE_URL}/api/stats`);
+                    if (statsResponse.ok) {
+                        const stats = await statsResponse.json();
+                        document.getElementById("stat-crops").textContent = stats.total_crops;
+                    }
+                } catch (e) {
+                    console.error("Stats fetch failed", e);
+                }
+
+                renderCropsHTML();
+            } catch (err) {
+                console.error("Error fetching crops:", err);
+            }
+        }
+
+        function renderCropsHTML() {
             const grid = document.getElementById("crops-grid");
-            const searchVal = (document.getElementById("db-search-input").value || "").toLowerCase().trim();
-
-            const filtered = allCrops.filter(crop => {
-                const matchesDistrict = activeDistrict === "all" || crop.districtKey === activeDistrict;
-                const matchesSearch = !searchVal ||
-                    crop.crop_name.toLowerCase().includes(searchVal) ||
-                    (crop.scientific_name && crop.scientific_name.toLowerCase().includes(searchVal)) ||
-                    (crop.growing_season && crop.growing_season.toLowerCase().includes(searchVal)) ||
-                    (crop.target_soil_type && crop.target_soil_type.toLowerCase().includes(searchVal)) ||
-                    crop.districtName.toLowerCase().includes(searchVal);
-
-                return matchesDistrict && matchesSearch;
-            });
-
-            if (filtered.length === 0) {
+            
+            if (allCrops.length === 0) {
                 grid.innerHTML = `
                     <div class="no-crops-found">
                         <h3>No Matching Crops Found</h3>
@@ -213,8 +224,10 @@
                 return;
             }
 
-            grid.innerHTML = filtered.map((crop, index) => `
-                <div class="db-crop-card" onclick="openHugeCard(${allCrops.indexOf(crop)})" role="button" tabindex="0">
+            grid.innerHTML = allCrops.map((crop, index) => {
+                crop.districtKey = crop.districtName.toLowerCase(); 
+                return `
+                <div class="db-crop-card" onclick="openHugeCard(${index})" role="button" tabindex="0">
                     <div>
                         <div class="card-top-meta">
                             <span class="card-district-pill">${crop.districtName}</span>
@@ -234,7 +247,7 @@
                         <span class="arrow">→</span>
                     </div>
                 </div>
-            `).join("");
+            `}).join("");
         }
 
         function openHugeCard(cropIndex) {
@@ -282,7 +295,12 @@
         });
 
         // Search Input
-        document.getElementById("db-search-input").addEventListener("input", renderCrops);
+        document.getElementById("db-search-input").addEventListener("input", () => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                fetchAndRenderCrops();
+            }, 300);
+        });
 
         // District Tabs
         const tabs = document.querySelectorAll(".tab-btn");
@@ -303,13 +321,22 @@
                     spotlight.style.display = "none";
                 }
 
-                renderCrops();
+                fetchAndRenderCrops();
             });
         });
 
         // Initialize on load
         window.addEventListener("DOMContentLoaded", initDatabase);
     </script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,mr'
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 
 </html>

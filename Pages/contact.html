@@ -13,11 +13,16 @@
     <header>
         <nav>
             <div class="navbar">
-                <div class="logo">
+                <div class="logo notranslate" translate="no">
                     <span class="hindi">भूमि</span>
                     <span class="english">BHUMI</span>
                 </div>
-                <div class="nav-links">
+                <div class="nav-links" style="align-items: center;">
+                    <select class="custom-lang-selector" onchange="changeLanguage(this.value)">
+                        <option value="en">English</option>
+                        <option value="mr">Marathi</option>
+                    </select>
+                    <div id="google_translate_element" style="width:0;height:0;overflow:hidden;position:absolute;"></div>
                     <a href="../index.html" class="nav-link">HOME</a>
                     <a href="about.html" class="nav-link">ABOUT</a>
                     <a href="services.html" class="nav-link">SERVICES</a>
@@ -109,6 +114,59 @@
     </section>
 
     <script src="../script.js"></script>
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const subject = document.getElementById("subject").value;
+            const message = document.getElementById("message").value;
+            const msgEl = document.getElementById("formMessage");
+            const btn = document.querySelector(".contact-btn");
+            
+            btn.innerHTML = "SENDING...";
+            btn.disabled = true;
+            
+            try {
+                // Since script.js is loaded, API_BASE_URL might be available.
+                // However script.js wraps it in DOMContentLoaded and doesn't export it globally,
+                // so we hardcode it here or define it globally in script.js. I'll hardcode it here.
+                const url = "http://127.0.0.1:5000/api/contact";
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ name, email, subject, message })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    msgEl.style.color = "green";
+                    msgEl.textContent = data.message || "Message sent successfully!";
+                    this.reset();
+                } else {
+                    msgEl.style.color = "red";
+                    msgEl.textContent = data.error || "Failed to send message.";
+                }
+            } catch (err) {
+                msgEl.style.color = "red";
+                msgEl.textContent = "Error connecting to the server.";
+            } finally {
+                btn.innerHTML = "SEND MESSAGE <span>→</span>";
+                btn.disabled = false;
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,mr'
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 
 </html>

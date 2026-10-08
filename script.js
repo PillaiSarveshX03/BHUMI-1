@@ -22,30 +22,42 @@ document.addEventListener("DOMContentLoaded", function () {
     let districtData = {};
     let dataPromise = null;
 
-    // Load data from Data/crops.json
+    const API_BASE_URL = "http://127.0.0.1:5000";
+
+    // Load data from Flask API
     function loadCropsData() {
         if (!dataPromise) {
-            const isInsidePages = window.location.pathname.includes("/Pages/");
-            const jsonPath = isInsidePages ? "../Data/crops.json" : "Data/crops.json";
-
-            dataPromise = fetch(jsonPath)
+            dataPromise = fetch(`${API_BASE_URL}/api/crops`)
                 .then(res => {
                     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
                     return res.json();
                 })
                 .then(data => {
-                    const rawDistricts = data?.regional_crop_agronomy_database?.districts || data?.districts || [];
                     districtData = {};
-                    if (Array.isArray(rawDistricts)) {
-                        rawDistricts.forEach(d => {
-                            districtData[d.district_name.toLowerCase()] = d;
+                    
+                    // First, process the districts
+                    if (Array.isArray(data.districts)) {
+                        data.districts.forEach(d => {
+                            const dKey = d.district_name.toLowerCase();
+                            districtData[dKey] = {
+                                ...d,
+                                viable_recommended_crops: []
+                            };
                         });
-                    } else {
-                        districtData = rawDistricts;
+                    }
+                    
+                    // Then, populate with crops
+                    if (Array.isArray(data.crops)) {
+                        data.crops.forEach(crop => {
+                            const dKey = crop.districtName.toLowerCase();
+                            if (districtData[dKey]) {
+                                districtData[dKey].viable_recommended_crops.push(crop);
+                            }
+                        });
                     }
                 })
                 .catch(err => {
-                    console.error("Failed to load Data/crops.json:", err);
+                    console.error("Failed to load crops from backend API:", err);
                 });
         }
         return dataPromise;
@@ -345,5 +357,33 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("keydown", (e) => {
         if (e.key === "Escape") closeCropModal();
     });
+});
+
+// --- Custom Google Translate Logic ---
+function changeLanguage(lang) {
+    if (lang === 'en') {
+        // To clear translation, delete the googtrans cookie and reload
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + window.location.hostname + "; path=/;";
+        window.location.reload();
+    } else {
+        // Set the google translate combo box
+        const teCombo = document.querySelector('.goog-te-combo');
+        if (teCombo) {
+            teCombo.value = lang;
+            teCombo.dispatchEvent(new Event('change'));
+        }
+    }
+}
+
+// Ensure the custom select reflects the current language on load
+window.addEventListener('DOMContentLoaded', () => {
+    const match = document.cookie.match(/(^|;) ?googtrans=([^;]*)(;|$)/);
+    // cookie value is something like "/en/mr"
+    const lang = match && match[2] ? match[2].split('/')[2] : 'en';
+    const selector = document.querySelector('.custom-lang-selector');
+    if (selector && lang) {
+        selector.value = lang;
+    }
 });
 

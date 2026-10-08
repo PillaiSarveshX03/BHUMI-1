@@ -823,3 +823,49 @@ body {
     color: #4C594A;
 }
 
+/* Google Translate Customization */
+.custom-lang-selector {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #d9ff7a;
+    background-color: rgb(12, 94, 62);
+    color: #d9ff7a;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+/* Aggressively hide the top white banner iframe */
+iframe.skiptranslate,
+.goog-te-banner-frame, 
+iframe.goog-te-banner-frame {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0px !important;
+    width: 0px !important;
+}
+body, html {
+    top: 0px !important;
+    position: static !important;
+}
+
+/* Hide the Google logo in the dropdown area */
+.goog-logo-link, .goog-te-gadget img {
+    display: none !important;
+}
+/* Hide tooltip that appears on hover */
+.goog-tooltip {
+    display: none !important;
+}
+.goog-tooltip:hover {
+    display: none !important;
+}
+.goog-text-highlight {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
