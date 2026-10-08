@@ -22,7 +22,8 @@
                     <a href="../index.html" class="nav-link">HOME</a>
                     <a href="about.html" class="nav-link">ABOUT</a>
                     <a href="services.html" class="nav-link">SERVICES</a>
-                    <a href="database.html" class="nav-link active" style="color: #2F7D46; font-weight: 700;">DATABASE</a>
+                    <a href="database.html" class="nav-link active"
+                        style="color: #2F7D46; font-weight: 700;">DATABASE</a>
                     <a href="contact.html" class="nav-link">CONTACT</a>
                 </div>
             </div>
@@ -99,7 +100,7 @@
     <div id="dossier-modal" class="dossier-modal-overlay" style="display: none;">
         <div class="huge-crop-card">
             <button id="modal-close-btn" class="huge-card-close" title="Close Dossier">&times;</button>
-            
+
             <div class="huge-card-head">
                 <div class="huge-head-tags">
                     <span class="huge-district-tag" id="modal-district">Sangli</span>
@@ -149,9 +150,9 @@
                 const response = await fetch("../Data/crops.json");
                 if (!response.ok) throw new Error("Could not load Data/crops.json");
                 const data = await response.json();
-                
+
                 const districts = data?.regional_crop_agronomy_database?.districts || [];
-                
+
                 let cropCount = 0;
                 districts.forEach(d => {
                     const dKey = d.district_name.toLowerCase();
@@ -192,7 +193,7 @@
 
             const filtered = allCrops.filter(crop => {
                 const matchesDistrict = activeDistrict === "all" || crop.districtKey === activeDistrict;
-                const matchesSearch = !searchVal || 
+                const matchesSearch = !searchVal ||
                     crop.crop_name.toLowerCase().includes(searchVal) ||
                     (crop.scientific_name && crop.scientific_name.toLowerCase().includes(searchVal)) ||
                     (crop.growing_season && crop.growing_season.toLowerCase().includes(searchVal)) ||
@@ -213,13 +214,20 @@
             }
 
             grid.innerHTML = filtered.map((crop, index) => `
-                <div class="db-crop-card" onclick="openHugeCard(${allCrops.indexOf(crop)})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openHugeCard(${allCrops.indexOf(crop)});}" role="button" tabindex="0">
-                    <div class="card-top-meta">
-                        <span class="card-district-pill">${crop.districtName}</span>
-                        <span class="card-rating-badge">★ ${crop.suitability_rating}</span>
-                    </div>
-                    <div class="crop-card-header">
-                        <h2>${crop.crop_name}</h2>
+                <div class="db-crop-card" onclick="openHugeCard(${allCrops.indexOf(crop)})" role="button" tabindex="0">
+                    <div>
+                        <div class="card-top-meta">
+                            <span class="card-district-pill">${crop.districtName}</span>
+                            <span class="card-rating-badge">★ ${crop.suitability_rating}</span>
+                        </div>
+                        <div class="crop-card-header">
+                            <h2>${crop.crop_name}</h2>
+                            <div class="crop-card-scientific"><em>${crop.scientific_name}</em></div>
+                        </div>
+                        <div class="crop-card-snippets">
+                            <div class="snippet-item"><strong>Season:</strong> ${crop.growing_season}</div>
+                            <div class="snippet-item"><strong>Target Soil:</strong> ${crop.target_soil_type}</div>
+                        </div>
                     </div>
                     <div class="card-action-cue">
                         <span>View Full Dossier</span>
